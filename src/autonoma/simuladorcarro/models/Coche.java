@@ -41,55 +41,65 @@ public class Coche
         this.patinando = false;
     }
 
-    public Llanta getTipoLlanta() {
+    public Llanta getTipoLlanta()
+    {
         return tipoLlanta;
     }
 
-    public void setTipoLlanta(Llanta tipoLlanta) {
+    public void setTipoLlanta(Llanta tipoLlanta)
+    {
         this.tipoLlanta = tipoLlanta;
     }
 
-    public Motor getTipoMotor() {
+    public Motor getTipoMotor()
+    {
         return tipoMotor;
     }
 
-    public void setTipoMotor(Motor tipoMotor) {
+    public void setTipoMotor(Motor tipoMotor)
+    {
         this.tipoMotor = tipoMotor;
     }
 
-    public Integer getVelocidad() {
+    public Integer getVelocidad()
+    {
         return velocidad;
     }
 
-    public void setVelocidad(Integer velocidad) {
+    public void setVelocidad(Integer velocidad)
+    {
         this.velocidad = velocidad;
     }
 
-    public boolean isAcelerado() {
+    public boolean isAcelerado()
+    {
         return acelerado;
     }
 
-    public void setAcelerado(boolean acelerado) {
+    public void setAcelerado(boolean acelerado)
+    {
         this.acelerado = acelerado;
     }
 
-    public boolean isPatinando() {
+    public boolean isPatinando()
+    {
         return patinando;
     }
 
-    public void setPatinando(boolean patinando) {
+    public void setPatinando(boolean patinando)
+    {
         this.patinando = patinando;
     }
 
-    public ArrayList<Motor> getValidarmotores() {
+    public ArrayList<Motor> getValidarmotores()
+    {
         return validarmotores;
     }
 
-    public void setValidarmotores(ArrayList<Motor> validarmotores) {
+    public void setValidarmotores(ArrayList<Motor> validarmotores)
+    {
         this.validarmotores = validarmotores;
     }
-
-    
     
     public void prenderMotor()throws EncenderOtraVezException
     {
@@ -113,9 +123,6 @@ public class Coche
             c.setPatinando(true);
             throw new RecuperaPatinajeException();
         } else {
-            
-            // this.tipoMotor.validarVelocidadMaxima(tipoMotor, tipoMotor, tipoMotor, tipoMotor);
-            //this.setVelocidad(nVelocidad);
             Integer nVelocidad = this.velocidad + velocidad;
             
             if (c.getTipoMotor().isPrendido()==true)
@@ -140,7 +147,6 @@ public class Coche
             throw new RecuperaPatinajeException("Su vehículo está patinando y por ende perdió el control, debe esperar a que se detenga para recuperarlo.");
         } else {
             double nVelocidad = c.getVelocidad() - intensidadFrenado;
-            //this.setVelocidad(velocidad);
             if (c.getTipoMotor().isPrendido()==false)
             {
                 throw new AcelerarFrenarException();
@@ -191,15 +197,13 @@ public class Coche
     {
        this.patinando = false;
         Thread.sleep(10000);
-         
-     
     }
-
 
     public Boolean accidenta(Coche c) throws ApagadoAccidenteException, ApagarOtraVezException
     {
         Boolean accidentado=false;
-        if(this.tipoMotor.validarVelocidadMaxima(c.getTipoMotor(), validarmotores, c.velocidad)){
+        if(this.tipoMotor.validarVelocidadMaxima(c.getTipoMotor(), validarmotores, c.velocidad))
+        {
             this.tipoMotor.apagar(c);
             accidentado=true;
             throw new ApagadoAccidenteException();

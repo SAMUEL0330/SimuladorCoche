@@ -62,7 +62,7 @@ public class Motor
     {
         this.prendido = prendido;
     }
-    ////Excepción 1
+    
     public void prender() throws EncenderOtraVezException
     {
         if(this.prendido)
@@ -72,7 +72,7 @@ public class Motor
             this.prendido=true;
         }
     }
-    ////Excepcion 2
+    
     public void apagar(Coche c)throws ApagarOtraVezException
     {
         if(!this.prendido)

@@ -298,7 +298,8 @@ public class VentanaPrincipal extends javax.swing.JFrame
         }
     }//GEN-LAST:event_AcelerarMouseClicked
 
-    public void stopPatinajeCarro() throws InterruptedException{
+    public void stopPatinajeCarro() throws InterruptedException
+    {
         this.simulador.getCoche().LlantaStopPatina();
         JOptionPane.showMessageDialog(this, "El carro dejo de patinar, frene si es necesario");
     }
@@ -306,15 +307,14 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private void FrenarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FrenarMouseClicked
         try 
         {
-            if(!this.simulador.getCoche().isPatinando()){
+            if(!this.simulador.getCoche().isPatinando())
+            {
                 Integer intensidadFrenado = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingreses la intensidad de frenado"));
                 simulador.frenarCoche(intensidadFrenado);
                 reproducir("acelerar.wav");
             }else{
                 JOptionPane.showMessageDialog(this, "El carro esta patinando, no puede frenar");
             }
-                
-            
         } catch (LlantaPatinajeException | AcelerarFrenarException | LimitePatinajeException | FrenaQuietoException e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         } finally {

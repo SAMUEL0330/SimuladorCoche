@@ -24,18 +24,11 @@ public class Taller
 
             try 
             {
-                // Leemos el contenido del fichero
-                System.out.println("... Leemos el contenido del fichero ...");
                 s = new Scanner(fichero);
-                //s.skip(Pattern.compile(" "));
-                // Leemos linea a linea el fichero
                 while (s.hasNextLine())
                 {
-                    // Utilizamos Scanner para leer la línea
                     Scanner lineaScanner = new Scanner(s.nextLine());
-                    // Omitimos la primera palabra (llantas o motor)
                     lineaScanner.skip("\\w+\\s");
-                    // Leemos y almacenamos la segunda palabra (Bonitas o 3000)
                     String palabra = lineaScanner.next();
                     if(contador == 1)
                     {
@@ -44,7 +37,6 @@ public class Taller
                         m.setCilindraje(palabra);
                     }
                     System.out.println(palabra);
-                    // Cerramos el Scanner de la línea
                     lineaScanner.close();
                     contador++;
                 }
@@ -52,11 +44,9 @@ public class Taller
                 c.setTipoMotor(m);
                 c.setTipoLlanta(l);
                 return c;  
-
             } catch (FileNotFoundException ex) {
                     System.out.println("Mensaje: " + ex.getMessage());
             } finally {
-                    // Cerramos el fichero tanto si la lectura ha sido correcta o no
                     try 
                     {
                         if (s != null)
