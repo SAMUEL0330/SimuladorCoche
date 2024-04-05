@@ -146,7 +146,7 @@ public class Coche
             c.setPatinando(true);
             throw new RecuperaPatinajeException("Su vehículo está patinando y por ende perdió el control, debe esperar a que se detenga para recuperarlo.");
         } else {
-            double nVelocidad = c.getVelocidad() - intensidadFrenado;
+            Integer nVelocidad = c.getVelocidad() - intensidadFrenado;
             if (c.getTipoMotor().isPrendido()==false)
             {
                 throw new AcelerarFrenarException();
