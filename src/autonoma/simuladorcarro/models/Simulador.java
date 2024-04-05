@@ -1,4 +1,15 @@
 package autonoma.simuladorcarro.models;
+
+import autonoma.simuladorcarro.exceptions.AcelerarFrenarException;
+import autonoma.simuladorcarro.exceptions.ApagadoAccidenteException;
+import autonoma.simuladorcarro.exceptions.ApagarOtraVezException;
+import autonoma.simuladorcarro.exceptions.CapacidadMotorException;
+import autonoma.simuladorcarro.exceptions.EncenderOtraVezException;
+import autonoma.simuladorcarro.exceptions.FrenaQuietoException;
+import autonoma.simuladorcarro.exceptions.LimitePatinajeException;
+import autonoma.simuladorcarro.exceptions.LlantaPatinajeException;
+import autonoma.simuladorcarro.exceptions.MasSesentaKmxhException;
+import autonoma.simuladorcarro.exceptions.RecuperaPatinajeException;
 /**
  *
  * @author Samuel Esteban Herrera Bedoya
@@ -8,29 +19,40 @@ package autonoma.simuladorcarro.models;
 public class Simulador 
 {
     private Coche coche;
-    
-    public void encender()
+
+    public Simulador() 
     {
-        System.out.println("El vehículo se ha encendido");
+        this.coche = Taller.creaCocheDeDocumento();
+    }
+
+    public Coche getCoche() 
+    {
+        return coche;
+    }
+
+    public void setCoche(Coche coche) 
+    {
+        this.coche = coche;
+    }
+
+    public void prenderCoche() throws EncenderOtraVezException
+    {
+        this.coche.prenderMotor();
     }
     
-    public void apagar()
+    public void apagarCoche(Coche c) throws ApagarOtraVezException, MasSesentaKmxhException, ApagadoAccidenteException
     {
-        System.out.println("El vehículo se ha apagado");
+            this.coche.apagarMotor(c);
     }
     
-    public void acelerar()
+    public void acelerarCoche(Integer acelaracion) throws AcelerarFrenarException, CapacidadMotorException, RecuperaPatinajeException, ApagadoAccidenteException, ApagarOtraVezException
     {
-        System.out.println("Se aceleró correctamente");
+            this.coche.acelerar(acelaracion, this.coche);
     }
     
-    public void frenar()
+    //Excepcion 5
+    public void frenarCoche(Integer intensidadFrenado) throws LlantaPatinajeException, AcelerarFrenarException, LimitePatinajeException, FrenaQuietoException
     {
-        System.out.println("Acaba de frenar");
-    }
-    
-    public void frenarBruscamente()
-    {
-        System.out.println("Frenó muy duro toro");
+            this.coche.frenar(intensidadFrenado, this.coche);
     }
 }

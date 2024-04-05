@@ -1,7 +1,18 @@
 package autonoma.simuladorcarro.views;
 
+import autonoma.simuladorcarro.exceptions.AcelerarFrenarException;
+import autonoma.simuladorcarro.exceptions.ApagadoAccidenteException;
+import autonoma.simuladorcarro.exceptions.ApagarOtraVezException;
+import autonoma.simuladorcarro.exceptions.CapacidadMotorException;
+import autonoma.simuladorcarro.exceptions.EncenderOtraVezException;
+import autonoma.simuladorcarro.exceptions.FrenaQuietoException;
+import autonoma.simuladorcarro.exceptions.LimitePatinajeException;
+import autonoma.simuladorcarro.exceptions.LlantaPatinajeException;
+import autonoma.simuladorcarro.exceptions.MasSesentaKmxhException;
+import autonoma.simuladorcarro.exceptions.RecuperaPatinajeException;
 import javax.swing.JOptionPane;
 import autonoma.simuladorcarro.models.Coche;
+import autonoma.simuladorcarro.models.Simulador;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -11,34 +22,51 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 /**
  *
  * @author Samuel Esteban Herrera Bedoya
  * @version 1.0.0
  * @since 2024-03-19
  */
-public class VentanaPrincipal extends javax.swing.JFrame 
+public class VentanaPrincipal extends javax.swing.JFrame
 {
-    private Coche coche;
-    Clip clip;
-    
+    private Simulador simulador;
+    private Clip clip;
+
     /**
      * Creates new form VentanaPrincipal
+     * @param simulador
      */
-    public VentanaPrincipal(Coche coche) 
+    public VentanaPrincipal(Simulador simulador)
     {
         initComponents();
-    }
-    
-    public void reproducir(File ruta) throws UnsupportedAudioFileException, IOException, LineUnavailableException
-    {
-        AudioInputStream a = AudioSystem.getAudioInputStream(ruta);
-        clip=AudioSystem.getClip();
-        clip.open(a);
-        clip.start();
+        this.setLocationRelativeTo(null);
+        this.simulador = simulador;
     }
 
+    private void reproducir(String ruta)
+    {
+        try
+        {
+            File archivoSonido = new File("C:\\Users\\User\\OneDrive\\Documentos\\NetBeansProjects\\SimuladorCarro\\src\\autonoma\\simuladorcarro\\sounds\\" + ruta);
+            AudioInputStream a = AudioSystem.getAudioInputStream(archivoSonido);
+            clip = AudioSystem.getClip();
+            clip.open(a);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println("Error al reproducir sonido del archivo " + ruta);
+        }
+    }
+    
+    private void mostrarVariablesCoche() 
+    {
+        Coche coche = simulador.getCoche();
+        boolean motorPrendido = coche.getTipoMotor().isPrendido();
+        String texto = "Estado del motor: " + (motorPrendido ? "Encendido" : "Apagado");
+        texto = texto + "Velocidad: " + (coche.getVelocidad());
+        texto = texto + "Patinando: " + (coche.isPatinando() ? "SI" : "NO");
+        MuestraVariables.setText(texto);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +88,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
         jLabel5 = new javax.swing.JLabel();
         FrenoMano = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        MuestraVariables = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +173,12 @@ public class VentanaPrincipal extends javax.swing.JFrame
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        Frenar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FrenarMouseClicked(evt);
+            }
+        });
+
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simuladorcarro/images/frenar.jpg"))); // NOI18N
 
         javax.swing.GroupLayout FrenarLayout = new javax.swing.GroupLayout(Frenar);
@@ -175,6 +210,8 @@ public class VentanaPrincipal extends javax.swing.JFrame
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        MuestraVariables.setBackground(new java.awt.Color(204, 204, 204));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,72 +225,102 @@ public class VentanaPrincipal extends javax.swing.JFrame
                     .addComponent(Acelerar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Frenar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(FrenoMano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(MuestraVariables, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Encender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Apagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Acelerar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Frenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FrenoMano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(PanelCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Encender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Apagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Acelerar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Frenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(FrenoMano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(MuestraVariables, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void EncenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EncenderMouseClicked
-        System.out.println("entre");
-        File n = new File("C:\\Users\\User\\OneDrive\\Documentos\\NetBeansProjects\\SimuladorCarro\\src\\autonoma\\simuladorcarro\\sounds\\encender.wav");
-        try 
+        try
         {
-            try 
-            {
-                reproducir(n);
-            } catch (LineUnavailableException ex) {
-                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (UnsupportedAudioFileException | IOException ex) {
-            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("entre");
+            simulador.prenderCoche();
+            reproducir("encender.wav");
+        } catch (EncenderOtraVezException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } finally {
+            mostrarVariablesCoche();
         }
     }//GEN-LAST:event_EncenderMouseClicked
 
     private void ApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ApagarMouseClicked
-        File n = new File("C:\\Users\\User\\OneDrive\\Documentos\\NetBeansProjects\\SimuladorCarro\\src\\autonoma\\simuladorcarro\\sounds\\apagar.wav");
         try 
         {
-            try 
-            {
-                reproducir(n);
-            } catch (LineUnavailableException ex) 
-            {
-                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (UnsupportedAudioFileException | IOException ex) 
-        {
-            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            simulador.apagarCoche(this.simulador.getCoche());
+            reproducir("apagar.wav");
+        } catch (ApagarOtraVezException | MasSesentaKmxhException | ApagadoAccidenteException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } finally {
+            mostrarVariablesCoche();
+        }        
     }//GEN-LAST:event_ApagarMouseClicked
 
     private void AcelerarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AcelerarMouseClicked
-        File n = new File("C:\\Users\\User\\OneDrive\\Documentos\\NetBeansProjects\\SimuladorCarro\\src\\autonoma\\simuladorcarro\\sounds\\acelerar.wav");
         try 
         {
-            try 
+            if(!this.simulador.getCoche().isPatinando())
             {
-                reproducir(n);
-            } catch (LineUnavailableException ex) {
-                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                Integer aceleracion = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingreses velocidad que desea acelerar"));
+                simulador.acelerarCoche(aceleracion);
+                reproducir("acelerar.wav");
+            }else{
+                JOptionPane.showMessageDialog(this, "El carro esta patinando, no puede acelerar");
+                stopPatinajeCarro();
             }
-        } catch (UnsupportedAudioFileException | IOException ex) {
-            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (AcelerarFrenarException | RecuperaPatinajeException | ApagadoAccidenteException | ApagarOtraVezException | CapacidadMotorException | InterruptedException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } finally {
+            mostrarVariablesCoche();
         }
     }//GEN-LAST:event_AcelerarMouseClicked
+
+    public void stopPatinajeCarro() throws InterruptedException{
+        this.simulador.getCoche().LlantaStopPatina();
+        JOptionPane.showMessageDialog(this, "El carro dejo de patinar, frene si es necesario");
+    }
+    
+    private void FrenarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FrenarMouseClicked
+        try 
+        {
+            if(!this.simulador.getCoche().isPatinando()){
+                Integer intensidadFrenado = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingreses la intensidad de frenado"));
+                simulador.frenarCoche(intensidadFrenado);
+                reproducir("acelerar.wav");
+            }else{
+                JOptionPane.showMessageDialog(this, "El carro esta patinando, no puede frenar");
+            }
+                
+            
+        } catch (LlantaPatinajeException | AcelerarFrenarException | LimitePatinajeException | FrenaQuietoException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } finally {
+            mostrarVariablesCoche();
+        }
+    }//GEN-LAST:event_FrenarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Acelerar;
@@ -261,6 +328,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private javax.swing.JPanel Encender;
     private javax.swing.JPanel Frenar;
     private javax.swing.JPanel FrenoMano;
+    private javax.swing.JLabel MuestraVariables;
     private javax.swing.JPanel PanelCarro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
