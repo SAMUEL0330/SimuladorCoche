@@ -14,7 +14,6 @@ public class Taller
 {
     public static Coche creaCocheDeDocumento()
     {
-        
         File fichero = new File("C:\\Users\\User\\OneDrive\\Documentos\\NetBeansProjects\\SimuladorCarro\\src\\autonoma\\simuladorcarro\\files\\TallerActualizar.txt");
             Scanner s = null;
             int contador =1;

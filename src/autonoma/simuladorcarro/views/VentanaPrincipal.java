@@ -15,8 +15,6 @@ import autonoma.simuladorcarro.models.Coche;
 import autonoma.simuladorcarro.models.Simulador;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -86,8 +84,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
         jLabel4 = new javax.swing.JLabel();
         Frenar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        FrenoMano = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         MuestraVariables = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -195,21 +191,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simuladorcarro/images/palanca.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout FrenoManoLayout = new javax.swing.GroupLayout(FrenoMano);
-        FrenoMano.setLayout(FrenoManoLayout);
-        FrenoManoLayout.setHorizontalGroup(
-            FrenoManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        FrenoManoLayout.setVerticalGroup(
-            FrenoManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FrenoManoLayout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
         MuestraVariables.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -223,17 +204,16 @@ public class VentanaPrincipal extends javax.swing.JFrame
                     .addComponent(Encender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Apagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Acelerar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Frenar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(FrenoMano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(Frenar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(MuestraVariables, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(MuestraVariables, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PanelCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Encender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,9 +222,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Acelerar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Frenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FrenoMano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(Frenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(MuestraVariables, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addContainerGap())
@@ -256,7 +234,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private void EncenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EncenderMouseClicked
         try
         {
-            System.out.println("entre");
             simulador.prenderCoche();
             reproducir("encender.wav");
         } catch (EncenderOtraVezException e){
@@ -290,7 +267,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(this, "El carro esta patinando, no puede acelerar");
                 stopPatinajeCarro();
             }
-            
         } catch (AcelerarFrenarException | RecuperaPatinajeException | ApagadoAccidenteException | ApagarOtraVezException | CapacidadMotorException | InterruptedException e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         } finally {
@@ -301,7 +277,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
     public void stopPatinajeCarro() throws InterruptedException
     {
         this.simulador.getCoche().LlantaStopPatina();
-        JOptionPane.showMessageDialog(this, "El carro dejo de patinar, frene si es necesario");
+        JOptionPane.showMessageDialog(this, "El carro dejo de patinar, frene o acelere si es necesario");
     }
     
     private void FrenarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FrenarMouseClicked
@@ -309,11 +285,11 @@ public class VentanaPrincipal extends javax.swing.JFrame
         {
             if(!this.simulador.getCoche().isPatinando())
             {
-                Integer intensidadFrenado = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingreses la intensidad de frenado"));
+                Integer intensidadFrenado = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese la intensidad de frenado"));
                 simulador.frenarCoche(intensidadFrenado);
                 reproducir("acelerar.wav");
             }else{
-                JOptionPane.showMessageDialog(this, "El carro esta patinando, no puede frenar");
+                JOptionPane.showMessageDialog(this, "El carro esta patinando, no puede frenar ni acelerar");
             }
         } catch (LlantaPatinajeException | AcelerarFrenarException | LimitePatinajeException | FrenaQuietoException e){
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -327,7 +303,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private javax.swing.JPanel Apagar;
     private javax.swing.JPanel Encender;
     private javax.swing.JPanel Frenar;
-    private javax.swing.JPanel FrenoMano;
     private javax.swing.JLabel MuestraVariables;
     private javax.swing.JPanel PanelCarro;
     private javax.swing.JLabel jLabel1;
@@ -335,7 +310,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }
 

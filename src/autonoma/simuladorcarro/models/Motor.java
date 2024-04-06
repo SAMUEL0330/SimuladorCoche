@@ -3,8 +3,6 @@ package autonoma.simuladorcarro.models;
 import autonoma.simuladorcarro.exceptions.ApagarOtraVezException;
 import autonoma.simuladorcarro.exceptions.EncenderOtraVezException;
 import java.util.ArrayList;
-import java.util.Iterator;
-
 /**
  *
  * @author Samuel Esteban Herrera Bedoya 

@@ -3,11 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/models/Simulador.java</file>
-            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/views/VentanaPrincipal.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/exceptions/LimitePatinajeException.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/exceptions/LlantaPatinajeException.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/images/frenar.jpg</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/exceptions/ApagarOtraVezException.java</file>
             <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/main/SimuladorMain.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/exceptions/ApagadoAccidenteException.java</file>
             <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/models/Taller.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/exceptions/AcelerarFrenarException.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/exceptions/EncenderOtraVezException.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/exceptions/RecuperaPatinajeException.java</file>
             <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/models/Motor.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/exceptions/MasSesentaKmxhException.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/images/acelerar.jpg</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/images/encender.png</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/models/Simulador.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/files/TallerActualizar.txt</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/images/apagar.png</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/exceptions/CapacidadMotorException.java</file>
+            <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/views/VentanaPrincipal.java</file>
             <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/models/Llanta.java</file>
             <file>file:/C:/Users/User/OneDrive/Documentos/NetBeansProjects/SimuladorCarro/src/autonoma/simuladorcarro/models/Coche.java</file>
         </group>

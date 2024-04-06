@@ -170,11 +170,9 @@ public class Coche
     
     public boolean LlantaPatina(boolean patinando) 
     {
-        // Crea un arreglo de un solo elemento para almacenar el valor de patinando
         final boolean[] patinandoArray = new boolean[1];
         patinandoArray[0] = patinando;
 
-        // Si la llanta no está patinando, comienza el temporizador
         if (!patinandoArray[0]) 
         {
             temporizador.schedule(new TimerTask()
@@ -182,14 +180,11 @@ public class Coche
                 @Override
                 public void run()
                 {
-                    // Al completarse el temporizador, establece patinando como falso
                     patinandoArray[0] = false;
-                    // Puedes realizar cualquier acción adicional aquí según sea necesario
                     System.out.println("El temporizador ha completado su ejecución.");
                 }
-            }, 7000); // Programa el temporizador para que se ejecute después de 7 segundos (5000 milisegundos)
+            }, 7000);
         }
-        // Devuelve el estado de patinando
         return patinandoArray[0];
     }
     

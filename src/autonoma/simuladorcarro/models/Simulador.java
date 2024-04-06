@@ -45,12 +45,11 @@ public class Simulador
             this.coche.apagarMotor(c);
     }
     
-    public void acelerarCoche(Integer acelaracion) throws AcelerarFrenarException, CapacidadMotorException, RecuperaPatinajeException, ApagadoAccidenteException, ApagarOtraVezException
+    public void acelerarCoche(Integer aceleracion) throws AcelerarFrenarException, CapacidadMotorException, RecuperaPatinajeException, ApagadoAccidenteException, ApagarOtraVezException
     {
-            this.coche.acelerar(acelaracion, this.coche);
+            this.coche.acelerar(aceleracion, this.coche);
     }
     
-    //Excepcion 5
     public void frenarCoche(Integer intensidadFrenado) throws LlantaPatinajeException, AcelerarFrenarException, LimitePatinajeException, FrenaQuietoException
     {
             this.coche.frenar(intensidadFrenado, this.coche);
